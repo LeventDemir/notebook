@@ -1,3 +1,9 @@
 .navbar-item {
     cursor: pointer;
 }
+
+@media screen and (max-width: 645px) {
+    .media {
+        display: inline
+    }
+}

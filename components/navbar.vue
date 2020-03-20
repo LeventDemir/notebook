@@ -21,7 +21,7 @@
 
       <div id="mobileNavbar" class="navbar-menu">
         <div class="navbar-end">
-          <div class="navbar-item">Home</div>
+          <a class="navbar-item">Home</a>
           <a class="navbar-item">Create note</a>
           <a class="navbar-item">Logout</a>
         </div>
