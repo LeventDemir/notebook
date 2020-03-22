@@ -4,17 +4,25 @@
 
     <br />
 
-    <div class="container">
+    <main class="container">
       <nuxt />
-    </div>
+    </main>
+
+    <br />
+    <br />
+    <br />
+    <br />
+
+    <Footer />
   </div>
 </template>
 
 
 <script>
 import Navbar from "@/components/navbar";
+import Footer from "@/components/footer";
 
 export default {
-  components: { Navbar }
+  components: { Navbar, Footer }
 };
 </script>
