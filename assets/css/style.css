@@ -1,4 +1,4 @@
-.navbar-item {
+.is-clickable {
     cursor: pointer;
 }
 
@@ -6,4 +6,15 @@
     .media {
         display: inline
     }
+    .media-left {
+        margin-bottom: 20px
+    }
+}
+
+.collapsible {
+    display: none;
+}
+
+.collapsible-active {
+    display: block;
 }
