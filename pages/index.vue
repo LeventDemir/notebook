@@ -11,10 +11,10 @@
       </ul>
     </div>
 
-    <!-- <Note /> -->
     <div v-for="i in 3" :key="i" class="columns">
       <div class="column is-full">
-        <Folder />
+        <Note />
+        <!-- <Folder /> -->
       </div>
     </div>
   </div>

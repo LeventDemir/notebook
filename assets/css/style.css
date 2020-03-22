@@ -3,6 +3,12 @@
 }
 
 @media screen and (max-width: 645px) {
+    .image {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 50%;
+    }
     .media {
         display: inline
     }
@@ -17,4 +23,14 @@
 
 .collapsible-active {
     display: block;
+}
+
+.text-collapsible {
+    height: 97px;
+    overflow: hidden;
+}
+
+.text-collapsible-active {
+    height: 100%;
+    overflow: hidden;
 }
