@@ -13,8 +13,8 @@
 
     <div v-for="i in 3" :key="i" class="columns">
       <div class="column is-full">
-        <Note />
-        <!-- <Folder /> -->
+        <Note v-if="tab" />
+        <Folder v-else />
       </div>
     </div>
   </div>
@@ -29,7 +29,9 @@ export default {
   components: { Note, Folder },
   data() {
     return {
-      tab: true
+      tab: true,
+      notes: [1, 2, 3, 4],
+      folder: [1, 2, 3, 4]
     };
   }
 };
