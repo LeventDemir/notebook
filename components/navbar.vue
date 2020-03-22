@@ -21,8 +21,8 @@
 
       <div id="mobileNavbar" class="navbar-menu">
         <div class="navbar-end">
-          <a class="navbar-item">Home</a>
-          <a class="navbar-item">Create note</a>
+          <nuxt-link :to="{ name: 'index' }" class="navbar-item" tag="a">Home</nuxt-link>
+          <nuxt-link :to="{ name: 'create-note' }" class="navbar-item" tag="a">Create note</nuxt-link>
           <a class="navbar-item">Logout</a>
         </div>
       </div>

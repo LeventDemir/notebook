@@ -34,3 +34,18 @@
     height: 100%;
     overflow: hidden;
 }
+
+.hide-file-input {
+    visibility: hidden;
+}
+
+.bold-border {
+    border: 2px solid;
+}
+
+@media screen and (max-width: 1023px) {
+    .columns {
+        margin-right: 5px !important;
+        margin-left: 5px !important;
+    }
+}
