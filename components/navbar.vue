@@ -23,6 +23,7 @@
         <div class="navbar-end">
           <nuxt-link :to="{ name: 'index' }" class="navbar-item" tag="a">Home</nuxt-link>
           <nuxt-link :to="{ name: 'create-note' }" class="navbar-item" tag="a">Create note</nuxt-link>
+          <nuxt-link :to="{ name: 'create-folder' }" class="navbar-item" tag="a">Create folder</nuxt-link>
           <a class="navbar-item">Logout</a>
         </div>
       </div>
