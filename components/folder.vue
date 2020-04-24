@@ -1,23 +1,24 @@
 <template >
   <div class="card">
     <div class="card-content">
-      <div @click="collapsible = !collapsible" class="is-clickable">
-        <span class="is-size-5">This is a title</span>
+      <span class="is-size-5">This is a title</span>
 
-        <div class="is-pulled-right">
-          <span class="icon has-text-success">
-            <i class="fas fa-pen"></i>
-          </span>
-          <span class="icon has-text-danger">
-            <i class="fas fa-trash"></i>
-          </span>
-        </div>
+      <div class="is-pulled-right">
+        <span @click="collapsible = !collapsible" class="icon has-text-grey-light is-clickable">
+          <i class="fas" :class="collapsible ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
+        </span>
+        <span class="icon has-text-success">
+          <i class="fas fa-pen"></i>
+        </span>
+        <span class="icon has-text-danger">
+          <i class="fas fa-trash"></i>
+        </span>
       </div>
 
       <div :class="collapsible ? 'collapsible-active' : 'collapsible'">
         <hr />
 
-        <div v-for="i in 2" :key="i"  class="columns">
+        <div v-for="i in 2" :key="i" class="columns">
           <div class="column is-full">
             <Note />
           </div>

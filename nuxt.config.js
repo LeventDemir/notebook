@@ -20,6 +20,13 @@ export default {
   */
   loading: { color: '#fff' },
   /*
+  ** page tansition
+  */
+  transition: {
+    name: 'page',
+    mode: 'out-in'
+  },
+  /*
   ** Global CSS
   */
   css: [
@@ -65,7 +72,7 @@ export default {
     /*
     ** You can extend webpack config here
     */
-    extend (config, ctx) {
+    extend(config, ctx) {
     }
   }
 }
