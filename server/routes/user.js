@@ -28,7 +28,7 @@ router.post('/register', (req, res) => {
 
     data.password = hash
     data.token = createToken()
-    data.login = true
+    data.login = false
 
     User.findOne({ username: data.username }, (err, user) => {
         if (user) {
@@ -41,6 +41,36 @@ router.post('/register', (req, res) => {
                     res.json({ success: false })
                 }
             })
+        }
+    })
+})
+
+
+router.post('/login', (req, res) => {
+    const data = req.body
+
+    User.findOne({ username: data.username }, (err, user) => {
+        if (user) {
+            if (bcrypt.compareSync(data.password, user.password)) {
+                if (user.login) {
+                    res.json({ token: user.token })
+                } else {
+                    user.token = createToken()
+                    user.login = true
+
+                    user.save(err => {
+                        if (!err) {
+                            res.json({ token: user.token })
+                        } else {
+                            res.json({ success: false })
+                        }
+                    })
+                }
+            } else {
+                res.json({ success: false })
+            }
+        } else {
+            res.json({ success: false })
         }
     })
 })
