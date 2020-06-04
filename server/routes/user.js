@@ -76,4 +76,25 @@ router.post('/login', (req, res) => {
 })
 
 
+router.post('/logout', (req, res) => {
+    const data = req.body
+
+    User.findOne({ token: data.token }, (err, user) => {
+        if (user) {
+            user.login = false
+
+            user.save(err => {
+                if (!err) {
+                    res.json({ success: true })
+                } else {
+                    res.json({ success: false })
+                }
+            })
+        } else {
+            res.json({ success: false })
+        }
+    })
+})
+
+
 module.exports = router
