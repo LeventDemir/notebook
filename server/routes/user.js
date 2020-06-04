@@ -28,7 +28,7 @@ router.post('/register', (req, res) => {
 
     data.password = hash
     data.token = createToken()
-    data.login = false
+    data.login = true
 
     User.findOne({ username: data.username }, (err, user) => {
         if (user) {
@@ -36,7 +36,7 @@ router.post('/register', (req, res) => {
         } else {
             new User(data).save(err => {
                 if (!err) {
-                    res.json({ success: true })
+                    res.json({ token: data.token })
                 } else {
                     res.json({ success: false })
                 }
@@ -77,9 +77,7 @@ router.post('/login', (req, res) => {
 
 
 router.post('/logout', (req, res) => {
-    const data = req.body
-
-    User.findOne({ token: data.token }, (err, user) => {
+    User.findOne({ token: req.body.token }, (err, user) => {
         if (user) {
             user.login = false
 
@@ -90,6 +88,17 @@ router.post('/logout', (req, res) => {
                     res.json({ success: false })
                 }
             })
+        } else {
+            res.json({ success: false })
+        }
+    })
+})
+
+
+router.get('/is-auth', (req, res) => {
+    User.findOne({ token: req.query.token }, (err, user) => {
+        if (user) {
+            res.json({ auth: user.login })
         } else {
             res.json({ success: false })
         }
