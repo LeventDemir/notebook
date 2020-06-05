@@ -81,4 +81,23 @@ router.post('/delete-note', (req, res) => {
 })
 
 
+router.get('/notes', (req, res) => {
+    const data = req.query
+
+    User.findOne({ token: data.token }, (err, user) => {
+        if (user && user.login) {
+            Note.find({ author: user._id }, (err, notes) => {
+                if (notes) {
+                    res.json(notes)
+                } else {
+                    res.json({ success: false })
+                }
+            })
+        } else {
+            res.json({ success: false })
+        }
+    })
+})
+
+
 module.exports = router
