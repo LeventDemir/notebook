@@ -56,4 +56,29 @@ router.post('/update-note', (req, res) => {
 })
 
 
+router.post('/delete-note', (req, res) => {
+    const data = req.body
+
+    User.findOne({ token: data.token }, (err, user) => {
+        if (user && user.login) {
+            Note.findOne({ _id: data.id, author: user._id }, (err, note) => {
+                if (note) {
+                    note.remove(err => {
+                        if (!err) {
+                            res.json({ success: true })
+                        } else {
+                            res.json({ success: false })
+                        }
+                    })
+                } else {
+                    res.json({ success: false })
+                }
+            })
+        } else {
+            res.json({ success: false })
+        }
+    })
+})
+
+
 module.exports = router
