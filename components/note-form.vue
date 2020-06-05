@@ -28,8 +28,8 @@
         <div class="select is-rounded is-fullwidth">
           <select>
             <option>Unlisted</option>
-            <option>Folder 1</option>
-            <option>Folder 2</option>
+            <option>List 1</option>
+            <option>List 2</option>
           </select>
         </div>
       </div>

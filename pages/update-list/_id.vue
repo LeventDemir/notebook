@@ -3,17 +3,17 @@
     <div class="column is-full">
       <br />
       <br />
-
-      <FolderForm />
+      
+      <ListForm />
     </div>
   </div>
 </template>
 
 
 <script>
-import FolderForm from "@/components/folder-form";
+import ListForm from "@/components/list-form";
 
 export default {
-  components: { FolderForm }
+  components: { ListForm }
 };
 </script>

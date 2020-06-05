@@ -2,7 +2,7 @@
   <form @submit.prevent>
     <div class="field">
       <div class="control">
-        <input class="input is-rounded" placeholder="Folder name" required />
+        <input class="input is-rounded" placeholder="List name" required />
       </div>
     </div>
 
@@ -10,7 +10,7 @@
 
     <div class="field">
       <div class="control has-text-centered">
-        <button type="submit" class="button is-link is-rounded">Create folder</button>
+        <button type="submit" class="button is-link is-rounded">Create list</button>
       </div>
     </div>
   </form>

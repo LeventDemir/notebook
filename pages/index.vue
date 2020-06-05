@@ -6,7 +6,7 @@
           <a>Notes</a>
         </li>
         <li @click="tab = !tab" :class="{ 'is-active' : !tab }">
-          <a>Folders</a>
+          <a>Lists</a>
         </li>
       </ul>
     </div>
@@ -14,7 +14,7 @@
     <div v-for="i in 3" :key="i" class="columns">
       <div class="column is-full">
         <Note v-if="tab" />
-        <Folder v-else />
+        <List v-else />
       </div>
     </div>
   </div>
@@ -23,15 +23,13 @@
 
 <script>
 import Note from "@/components/note";
-import Folder from "@/components/folder";
+import List from "@/components/list";
 
 export default {
-  components: { Note, Folder },
+  components: { Note, List },
   data() {
     return {
-      tab: true,
-      notes: [1, 2, 3, 4],
-      folder: [1, 2, 3, 4]
+      tab: true
     };
   }
 };
