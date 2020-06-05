@@ -1,33 +1,22 @@
 const express = require('express')
+const mongoose = require('mongoose')
 const router = express.Router()
+const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 const User = require('../models/user')
-
-
-// create token
-const createToken = () => {
-    const letters = [...Array(52).keys()].map(i =>
-        i > 25 ? String.fromCharCode(i + 71) : String.fromCharCode(i + 65)
-    );
-
-    let token = "";
-
-    for (let x = 0; x < 100; x++) {
-        token += letters[Math.floor(Math.random() * letters.length)];
-    }
-
-    return token;
-}
 
 
 router.post('/register', (req, res) => {
     const data = req.body
 
+    const _id = mongoose.Types.ObjectId()
+
     const salt = bcrypt.genSaltSync(10);
     const hash = bcrypt.hashSync(data.password, salt);
 
+    data._id = _id
     data.password = hash
-    data.token = createToken()
+    data.token = jwt.sign({ author: _id }, 'SeCrEtKeY');
     data.login = true
 
     User.findOne({ username: data.username }, (err, user) => {
@@ -55,7 +44,7 @@ router.post('/login', (req, res) => {
                 if (user.login) {
                     res.json({ token: user.token })
                 } else {
-                    user.token = createToken()
+                    user.token = jwt.sign({ author: user._id }, 'SeCrEtKeY');
                     user.login = true
 
                     user.save(err => {

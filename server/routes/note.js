@@ -1,6 +1,6 @@
 const express = require('express')
+const jwt = require('jsonwebtoken')
 const router = express.Router()
-const User = require('../models/user')
 const Note = require('../models/note')
 const auth = require('../middleware/auth')
 
@@ -10,6 +10,7 @@ router.post('/create-note', auth, (req, res) => {
 
     const date = new Date()
 
+    data.author = jwt.verify(data.token, 'SeCrEtKeY').author
     data.createdAt = date.toGMTString().split(":")[0] + ":" + date.getMinutes()
 
     new Note(data).save(err => {
@@ -24,8 +25,9 @@ router.post('/create-note', auth, (req, res) => {
 
 router.post('/update-note', auth, (req, res) => {
     const data = req.body
+    const author = jwt.verify(data.token, 'SeCrEtKeY').author
 
-    Note.findOne({ _id: data.id, author: data.author }, (err, note) => {
+    Note.findOne({ _id: data.id, author }, (err, note) => {
         if (note) {
             note.photo = data.photo
             note.note = data.note
@@ -46,8 +48,9 @@ router.post('/update-note', auth, (req, res) => {
 
 router.post('/delete-note', auth, (req, res) => {
     const data = req.body
+    const author = jwt.verify(data.token, 'SeCrEtKeY').author
 
-    Note.findOne({ _id: data.id, author: data.author }, (err, note) => {
+    Note.findOne({ _id: data.id, author }, (err, note) => {
         if (note) {
             note.remove(err => {
                 if (!err) {
@@ -64,9 +67,9 @@ router.post('/delete-note', auth, (req, res) => {
 
 
 router.get('/notes', auth, (req, res) => {
-    const data = req.query
+    const author = jwt.verify(req.query.token, 'SeCrEtKeY').author
 
-    Note.find({ author: data.author }, (err, notes) => {
+    Note.find({ author }, (err, notes) => {
         if (notes) {
             res.json(notes)
         } else {
