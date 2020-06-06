@@ -20,7 +20,7 @@ router.post('/create', auth, (req, res) => {
                 delete data.token
                 delete data.list
                 delete data.author
-                
+
                 list.notes.unshift(data)
 
                 list.save(err => {
@@ -50,22 +50,45 @@ router.post('/update', auth, (req, res) => {
     const data = req.body
     const author = jwt.verify(data.token, 'SeCrEtKeY').author
 
-    Note.findOne({ _id: data.id, author }, (err, note) => {
-        if (note) {
-            note.photo = data.photo
-            note.note = data.note
-
-            note.save(err => {
-                if (!err) {
-                    res.json({ success: true })
-                } else {
-                    res.json({ err })
+    if (data.list && data.index) {
+        List.findOne({ _id: data.list, author }, (err, list) => {
+            if (list && list.notes.length  > +data.index && +data.index > -1) {
+                const note = {
+                    note: data.note,
+                    createdAt: list.notes[data.index].createdAt
                 }
-            })
-        } else {
-            res.json({ success: false })
-        }
-    })
+
+                list.notes.splice(+data.index, +data.index + 1, note)
+
+                list.save(err => {
+                    if (!err) {
+                        res.json({ success: true })
+                    } else {
+                        res.json({ success: false })
+                    }
+                })
+            } else {
+                res.json({ success: false })
+            }
+        })
+    } else {
+        Note.findOne({ _id: data.id, author }, (err, note) => {
+            if (note) {
+                note.photo = data.photo
+                note.note = data.note
+
+                note.save(err => {
+                    if (!err) {
+                        res.json({ success: true })
+                    } else {
+                        res.json({ err })
+                    }
+                })
+            } else {
+                res.json({ success: false })
+            }
+        })
+    }
 })
 
 
