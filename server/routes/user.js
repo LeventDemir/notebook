@@ -19,17 +19,13 @@ router.post('/register', (req, res) => {
     data.token = jwt.sign({ author: _id }, 'SeCrEtKeY');
     data.login = true
 
-    User.findOne({ username: data.username }, (err, user) => {
-        if (user) {
+    new User(data).save(err => {
+        if (!err) {
+            res.json({ token: data.token })
+        } else if (err.code == 11000) {
             res.json({ exist: true })
         } else {
-            new User(data).save(err => {
-                if (!err) {
-                    res.json({ token: data.token })
-                } else {
-                    res.json({ success: false })
-                }
-            })
+            res.json({ success: false })
         }
     })
 })

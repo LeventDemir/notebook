@@ -6,6 +6,7 @@ const app = express()
 
 const user = require('./routes/user')
 const note = require('./routes/note')
+const list = require('./routes/list')
 
 
 mongoose.connect('mongodb://localhost/notebook', {
@@ -21,6 +22,7 @@ mongoose.connection.on("error", err => console.log(err));
 app.use(bodyParser.json())
 app.use('/user', user)
 app.use('/note', note)
+app.use('/list', list)
 
 
 module.exports = app
