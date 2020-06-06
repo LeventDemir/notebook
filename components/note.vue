@@ -19,12 +19,16 @@
           <time class="is-size-7 has-text-grey">{{ data.createdAt }}</time>
 
           <div class="is-pulled-right">
-            <span @click="collapsible = !collapsible" class="icon has-text-grey-light is-clickable">
+            <span @click="collapsible = !collapsible" class="icon has-text-grey-light">
               <i class="fas" :class="collapsible ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
             </span>
-            <span class="icon has-text-success">
+            <nuxt-link
+              :to="{ name: 'update-note-id', params: { id: data._id } }"
+              class="icon has-text-success"
+              tag="span"
+            >
               <i class="fas fa-pen"></i>
-            </span>
+            </nuxt-link>
             <span @click="$store.dispatch('note/delete', data._id)" class="icon has-text-danger">
               <i class="fas fa-trash"></i>
             </span>

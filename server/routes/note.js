@@ -79,18 +79,4 @@ router.get('/notes', auth, (req, res) => {
 })
 
 
-router.get('/note', auth, (req, res) => {
-    const data = req.query
-    const author = jwt.verify(data.token, 'SeCrEtKeY').author
-
-    Note.find({ _id: data.id, author }, (err, note) => {
-        if (note) {
-            res.json(note)
-        } else {
-            res.json({ success: false })
-        }
-    })
-})
-
-
 module.exports = router

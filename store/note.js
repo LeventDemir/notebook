@@ -31,11 +31,19 @@ export const actions = {
                 }
             })
     },
-    notes({ rootGetters, commit }) {
-        return this.$axios.get('/note/notes', { params: { token: rootGetters['user/getToken'] } })
+    update({ rootGetters, dispatch }, note) {
+        this.$axios.post('/note/update', { token: rootGetters['user/getToken'], ...note })
             .then(response => {
-                if (response.data.notes) {
-                    commit('setNotes', response.data.notes)
+                if (response.data.success) {
+                    // get notes 
+                    dispatch('notes')
+                    // send success notification
+                    this.$notification({ msg: "Note successfully updated", class: 'is-success' })
+                    // redirect to home page
+                    this.$router.push({ name: 'index' })
+                } else {
+                    // send error notification
+                    this.$notification({ msg: "something went wrong", class: 'is-danger' })
                 }
             })
     },
@@ -52,5 +60,13 @@ export const actions = {
                     this.$notification({ msg: "something went wrong", class: 'is-danger' })
                 }
             })
-    }
+    },
+    notes({ rootGetters, commit }) {
+        return this.$axios.get('/note/notes', { params: { token: rootGetters['user/getToken'] } })
+            .then(response => {
+                if (response.data.notes) {
+                    commit('setNotes', response.data.notes)
+                }
+            })
+    },
 }

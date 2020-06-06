@@ -1,5 +1,5 @@
 <template >
-  <form @submit.prevent="$store.dispatch('note/create', note)">
+  <form @submit.prevent="submit">
     <input
       @change="handleFileUpload"
       ref="photoInput"
@@ -27,6 +27,11 @@
           <span>Photo</span>
         </button>
       </div>
+      <span
+        v-if="note.photo"
+        @click="note.photo = null"
+        class="is-size-7 has-text-danger is-clickable"
+      >cancel the photo</span>
     </div>
 
     <div class="field">
@@ -45,7 +50,10 @@
 
     <div class="field">
       <div class="control has-text-centered">
-        <button type="submit" class="button is-link is-rounded">Create note</button>
+        <button
+          type="submit"
+          class="button is-link is-rounded"
+        >{{ $route.name == 'create-note' ? 'Create' : 'Update' }} note</button>
       </div>
     </div>
   </form>
@@ -54,6 +62,20 @@
 
 <script>
 export default {
+  mounted() {
+    if (this.$route.name == "update-note-id") {
+      const notes = this.$store.getters["note/getNotes"];
+      const noteIndex = notes.findIndex(
+        index => index["_id"] == this.$route.params.id
+      );
+      const note = notes[noteIndex];
+
+      this.note.id = note._id;
+      this.note.photo = note.photo;
+      this.note.note = note.note;
+      this.note.list = note.list;
+    }
+  },
   data() {
     return {
       note: {
@@ -81,6 +103,13 @@ export default {
           msg: "The photo you will upload must be less than 6 MB!",
           class: "is-danger"
         });
+      }
+    },
+    submit() {
+      if (this.$route.name == "create-note") {
+        this.$store.dispatch("note/create", this.note);
+      } else {
+        this.$store.dispatch("note/update", this.note);
       }
     }
   }

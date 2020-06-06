@@ -4,7 +4,7 @@
       <span class="is-size-5">This is a title</span>
 
       <div class="is-pulled-right">
-        <span @click="collapsible = !collapsible" class="icon has-text-grey-light is-clickable">
+        <span @click="collapsible = !collapsible" class="icon has-text-grey-light">
           <i class="fas" :class="collapsible ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
         </span>
         <span class="icon has-text-success">
