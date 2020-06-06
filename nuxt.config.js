@@ -37,6 +37,7 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
+    { src: '~/plugins/notification.js', mode: 'client' }
   ],
   /*
   ** serverMiddleware 
