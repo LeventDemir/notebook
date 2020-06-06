@@ -95,6 +95,6 @@ export const actions = {
     },
     isAuth({ getters, commit }) {
         return this.$axios.get('/user/is-auth', { params: { token: getters.getToken } })
-            .then(response => commit('setAuth', response.data.auth))
+            .then(response => commit('setAuth', response.data.auth || false))
     }
 }

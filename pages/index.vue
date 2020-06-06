@@ -11,9 +11,9 @@
       </ul>
     </div>
 
-    <div v-for="i in 3" :key="i" class="columns">
+    <div v-for="item in tab ? $store.getters['note/getNotes'] : []" :key="item._id" class="columns">
       <div class="column is-full">
-        <Note v-if="tab" />
+        <Note :data="item" v-if="tab" />
         <List v-else />
       </div>
     </div>
@@ -29,7 +29,8 @@ export default {
   components: { Note, List },
   data() {
     return {
-      tab: true
+      tab: true,
+      list: null
     };
   }
 };

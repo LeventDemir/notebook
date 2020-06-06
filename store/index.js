@@ -13,6 +13,8 @@ export const actions = {
                     await commit('user/setToken', token)
 
                     await dispatch('user/isAuth')
+
+                    await dispatch('note/notes')
                 }
             } else {
                 const token = await req.headers.cookie.substr(6)
@@ -20,6 +22,8 @@ export const actions = {
                 await commit('user/setToken', token)
 
                 await dispatch('user/isAuth')
+
+                await dispatch('note/notes')
             }
         }
     }

@@ -15,14 +15,38 @@ export const mutations = {
 }
 
 export const actions = {
-    create({ rootGetters }, note) {
+    create({ rootGetters, dispatch }, note) {
         this.$axios.post('/note/create', { token: rootGetters['user/getToken'], ...note })
             .then(response => {
                 if (response.data.success) {
+                    // get notes 
+                    dispatch('notes')
                     // send success notification
                     this.$notification({ msg: "registration successfully completed", class: 'is-success' })
                     // redicect to home page
                     this.$router.push({ name: 'index' })
+                } else {
+                    // send error notification
+                    this.$notification({ msg: "something went wrong", class: 'is-danger' })
+                }
+            })
+    },
+    notes({ rootGetters, commit }) {
+        return this.$axios.get('/note/notes', { params: { token: rootGetters['user/getToken'] } })
+            .then(response => {
+                if (response.data.notes) {
+                    commit('setNotes', response.data.notes)
+                }
+            })
+    },
+    delete({ rootGetters, dispatch }, id) {
+        this.$axios.post('/note/delete', { token: rootGetters['user/getToken'], id })
+            .then(response => {
+                if (response.data.success) {
+                    // get notes 
+                    dispatch('notes')
+                    // send success notification
+                    this.$notification({ msg: "Note successfully deleted", class: 'is-success' })
                 } else {
                     // send error notification
                     this.$notification({ msg: "something went wrong", class: 'is-danger' })

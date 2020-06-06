@@ -71,7 +71,7 @@ router.get('/notes', auth, (req, res) => {
 
     Note.find({ author }, (err, notes) => {
         if (notes) {
-            res.json(notes)
+            res.json({ notes })
         } else {
             res.json({ success: false })
         }
