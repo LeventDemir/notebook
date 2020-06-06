@@ -19,7 +19,7 @@ mongoose.connection.on("open", () => console.log("✔ Connected to mongodb"));
 mongoose.connection.on("error", err => console.log(err));
 
 
-app.use(bodyParser.json())
+app.use(bodyParser.json({ limit: '6mb' }))
 app.use('/user', user)
 app.use('/note', note)
 app.use('/list', list)
