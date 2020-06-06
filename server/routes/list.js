@@ -5,7 +5,7 @@ const auth = require('../middleware/auth')
 const List = require('../models/list')
 
 
-router.post('/create-list', auth, (req, res) => {
+router.post('/create', auth, (req, res) => {
     const data = req.body
 
     data.author = jwt.verify(data.token, 'SeCrEtKeY').author
@@ -23,7 +23,7 @@ router.post('/create-list', auth, (req, res) => {
 })
 
 
-router.post('/update-list', auth, (req, res) => {
+router.post('/update', auth, (req, res) => {
     const data = req.body
     const author = jwt.verify(data.token, 'SeCrEtKeY').author
 
@@ -45,7 +45,7 @@ router.post('/update-list', auth, (req, res) => {
 })
 
 
-router.post('/delete-list', auth, (req, res) => {
+router.post('/delete', auth, (req, res) => {
     const data = req.body
     const author = jwt.verify(data.token, 'SeCrEtKeY').author
 
@@ -58,6 +58,19 @@ router.post('/delete-list', auth, (req, res) => {
                     res.json({ success: false })
                 }
             })
+        } else {
+            res.json({ success: false })
+        }
+    })
+})
+
+
+router.get('/lists', auth, (req, res) => {
+    const author = jwt.verify(req.query.token, 'SeCrEtKeY').author
+
+    List.find({ author }, (err, lists) => {
+        if (lists) {
+            res.json(lists)
         } else {
             res.json({ success: false })
         }

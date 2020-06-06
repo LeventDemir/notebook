@@ -5,7 +5,7 @@ const Note = require('../models/note')
 const auth = require('../middleware/auth')
 
 
-router.post('/create-note', auth, (req, res) => {
+router.post('/create', auth, (req, res) => {
     const data = req.body
 
     const date = new Date()
@@ -23,7 +23,7 @@ router.post('/create-note', auth, (req, res) => {
 })
 
 
-router.post('/update-note', auth, (req, res) => {
+router.post('/update', auth, (req, res) => {
     const data = req.body
     const author = jwt.verify(data.token, 'SeCrEtKeY').author
 
@@ -46,7 +46,7 @@ router.post('/update-note', auth, (req, res) => {
 })
 
 
-router.post('/delete-note', auth, (req, res) => {
+router.post('/delete', auth, (req, res) => {
     const data = req.body
     const author = jwt.verify(data.token, 'SeCrEtKeY').author
 
