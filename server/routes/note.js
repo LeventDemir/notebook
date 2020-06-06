@@ -2,24 +2,47 @@ const express = require('express')
 const jwt = require('jsonwebtoken')
 const router = express.Router()
 const Note = require('../models/note')
+const List = require('../models/list')
 const auth = require('../middleware/auth')
 
 
 router.post('/create', auth, (req, res) => {
     const data = req.body
-
     const date = new Date()
+    const author = jwt.verify(data.token, 'SeCrEtKeY').author
 
-    data.author = jwt.verify(data.token, 'SeCrEtKeY').author
+    data.author = author
     data.createdAt = date.toGMTString().split(":")[0] + ":" + date.getMinutes()
 
-    new Note(data).save(err => {
-        if (!err) {
-            res.json({ success: true })
-        } else {
-            res.json({ success: false })
-        }
-    })
+    if (data.list) {
+        List.findOne({ _id: data.list, author }, (err, list) => {
+            if (list) {
+                delete data.token
+                delete data.list
+                delete data.author
+                
+                list.notes.unshift(data)
+
+                list.save(err => {
+                    if (!err) {
+                        res.json({ success: true })
+                    } else {
+                        res.json({ success: false })
+                    }
+                })
+            } else {
+                res.json({ success: false })
+            }
+        })
+    } else {
+        new Note(data).save(err => {
+            if (!err) {
+                res.json({ success: true })
+            } else {
+                res.json({ success: false })
+            }
+        })
+    }
 })
 
 
