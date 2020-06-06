@@ -23,4 +23,26 @@ router.post('/create-list', auth, (req, res) => {
 })
 
 
+router.post('/update-list', auth, (req, res) => {
+    const data = req.body
+    const author = jwt.verify(data.token, 'SeCrEtKeY').author
+
+    List.findOne({ _id: data.id, author }, (err, list) => {
+        if (list) {
+            list.name = data.name
+
+            list.save(err => {
+                if (!err) {
+                    res.json({ success: true })
+                } else {
+                    res.json({ success: false })
+                }
+            })
+        } else {
+            res.json({ success: false })
+        }
+    })
+})
+
+
 module.exports = router
