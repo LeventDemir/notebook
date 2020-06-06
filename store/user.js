@@ -26,8 +26,8 @@ export const mutations = {
 
 
 export const actions = {
-    register({ commit }, data) {
-        this.$axios.post('http://localhost:3000/api/user/register', data)
+    register({ commit }, user) {
+        this.$axios.post('/user/register', user)
             .then(response => {
                 if (response.data.token) {
                     // set token to cookies
@@ -50,5 +50,26 @@ export const actions = {
                     this.$notification({ msg: "something went wrong", class: 'is-danger' })
                 }
             })
+    },
+    login({ commit }, user) {
+        this.$axios.post('/user/login', user).then(response => {
+            if (response.data.token) {
+                // set token to cookies
+                cookies.set('token', response.data.token)
+                // set token to vuex
+                commit('setToken', response.data.token)
+                // set auth to Vuex 
+                commit('setAuth', true)
+
+                // send success notification
+                this.$notification({ msg: "login successfully performed", class: 'is-success' })
+
+                // redicect to home page
+                this.$router.push({ name: 'index' })
+            } else {
+                // send error notification
+                this.$notification({ msg: "something went wrong", class: 'is-danger' })
+            }
+        })
     }
 }
