@@ -62,7 +62,7 @@ export const actions = {
                 commit('setAuth', true)
 
                 // send success notification
-                this.$notification({ msg: "login successfully performed", class: 'is-success' })
+                this.$notification({ msg: "logged in", class: 'is-success' })
 
                 // redicect to home page
                 this.$router.push({ name: 'index' })
@@ -71,5 +71,26 @@ export const actions = {
                 this.$notification({ msg: "something went wrong", class: 'is-danger' })
             }
         })
+    },
+    logout({ getters, commit }) {
+        this.$axios.post('/user/logout', { token: getters.getToken })
+            .then(response => {
+                if (response.data.success) {
+                    // delete token from cookies
+                    cookies.remove('token')
+                    //delete token from vuex
+                    commit('setToken', null)
+                    // delete auth from vuex
+                    commit('setAuth', null)
+
+                    // send success notification
+                    this.$notification({ msg: "logged out", class: 'is-success' })
+
+                    // redicect to home page
+                    this.$router.push({ name: 'index' })
+                } else {
+                    this.$notification({ msg: "something went wrong", class: 'is-danger' })
+                }
+            })
     }
 }

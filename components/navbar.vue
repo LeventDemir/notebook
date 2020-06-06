@@ -24,7 +24,7 @@
           <nuxt-link :to="{ name: 'index' }" class="navbar-item" tag="a">Home</nuxt-link>
           <nuxt-link :to="{ name: 'create-note' }" class="navbar-item" tag="a">Create note</nuxt-link>
           <nuxt-link :to="{ name: 'create-list' }" class="navbar-item" tag="a">Create list</nuxt-link>
-          <a class="navbar-item">Logout</a>
+          <a @click="$store.dispatch('user/logout')" class="navbar-item">Logout</a>
         </div>
       </div>
     </div>
