@@ -2,7 +2,6 @@ const express = require('express')
 const jwt = require('jsonwebtoken')
 const router = express.Router()
 const Note = require('../models/note')
-const List = require('../models/list')
 const auth = require('../middleware/auth')
 
 
@@ -31,6 +30,7 @@ router.post('/update', auth, (req, res) => {
         if (note) {
             note.photo = data.photo
             note.note = data.note
+            note.list = data.list
 
             note.save(err => {
                 if (!err) {

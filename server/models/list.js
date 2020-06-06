@@ -10,9 +10,6 @@ const List = new mongoose.Schema({
         type: String,
         required: true,
         unique: true
-    },
-    notes: {
-        type: Array
     }
 })
 

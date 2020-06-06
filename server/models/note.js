@@ -13,6 +13,9 @@ const Note = new mongoose.Schema({
         type: String,
         required: true
     },
+    list: {
+        type: String
+    },
     createdAt: {
         type: String,
         required: true
