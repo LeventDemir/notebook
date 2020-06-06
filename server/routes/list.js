@@ -45,4 +45,24 @@ router.post('/update-list', auth, (req, res) => {
 })
 
 
+router.post('/delete-list', auth, (req, res) => {
+    const data = req.body
+    const author = jwt.verify(data.token, 'SeCrEtKeY').author
+
+    List.findOne({ _id: data.id, author }, (err, list) => {
+        if (list) {
+            list.remove(err => {
+                if (!err) {
+                    res.json({ success: true })
+                } else {
+                    res.json({ success: false })
+                }
+            })
+        } else {
+            res.json({ success: false })
+        }
+    })
+})
+
+
 module.exports = router
