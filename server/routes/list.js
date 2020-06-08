@@ -15,8 +15,7 @@ router.post('/create', auth, (req, res) => {
             res.json({ success: true })
         } else if (err.code == 11000) {
             res.json({ exist: true })
-        }
-        else {
+        } else {
             res.json({ success: false })
         }
     })
@@ -34,6 +33,8 @@ router.post('/update', auth, (req, res) => {
             list.save(err => {
                 if (!err) {
                     res.json({ success: true })
+                } else if (err.code == 11000) {
+                    res.json({ exist: true })
                 } else {
                     res.json({ success: false })
                 }
@@ -70,7 +71,7 @@ router.get('/lists', auth, (req, res) => {
 
     List.find({ author }, (err, lists) => {
         if (lists) {
-            res.json(lists)
+            res.json({ lists })
         } else {
             res.json({ success: false })
         }

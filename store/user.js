@@ -38,16 +38,16 @@ export const actions = {
                     commit('setAuth', true)
 
                     // send success notification
-                    this.$notification({ msg: "registration successfully completed", class: 'is-success' })
+                    this.$notification({ msg: "Registration successfully completed", class: 'is-success' })
 
                     // redicect to home page
                     this.$router.push({ name: 'index' })
                 } else if (response.data.exist) {
                     // send error notification
-                    this.$notification({ msg: "this user is already exist", class: 'is-danger' })
+                    this.$notification({ msg: "This user is already exist", class: 'is-danger' })
                 } else {
                     // send error notification
-                    this.$notification({ msg: "something went wrong", class: 'is-danger' })
+                    this.$notification({ msg: "Something went wrong", class: 'is-danger' })
                 }
             })
     },
@@ -62,13 +62,13 @@ export const actions = {
                 commit('setAuth', true)
 
                 // send success notification
-                this.$notification({ msg: "logged in", class: 'is-success' })
+                this.$notification({ msg: "Logged in", class: 'is-success' })
 
                 // redicect to home page
                 this.$router.push({ name: 'index' })
             } else {
                 // send error notification
-                this.$notification({ msg: "something went wrong", class: 'is-danger' })
+                this.$notification({ msg: "Something went wrong", class: 'is-danger' })
             }
         })
     },
@@ -84,12 +84,12 @@ export const actions = {
                     commit('setAuth', null)
 
                     // send success notification
-                    this.$notification({ msg: "logged out", class: 'is-success' })
+                    this.$notification({ msg: "Logged out", class: 'is-success' })
 
                     // redicect to home page
                     this.$router.push({ name: 'index' })
                 } else {
-                    this.$notification({ msg: "something went wrong", class: 'is-danger' })
+                    this.$notification({ msg: "Something went wrong", class: 'is-danger' })
                 }
             })
     },

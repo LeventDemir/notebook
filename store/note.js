@@ -22,12 +22,12 @@ export const actions = {
                     // get notes 
                     dispatch('notes')
                     // send success notification
-                    this.$notification({ msg: "registration successfully completed", class: 'is-success' })
+                    this.$notification({ msg: "Note created successfully", class: 'is-success' })
                     // redicect to home page
                     this.$router.push({ name: 'index' })
                 } else {
                     // send error notification
-                    this.$notification({ msg: "something went wrong", class: 'is-danger' })
+                    this.$notification({ msg: "Something went wrong", class: 'is-danger' })
                 }
             })
     },
@@ -43,7 +43,7 @@ export const actions = {
                     this.$router.push({ name: 'index' })
                 } else {
                     // send error notification
-                    this.$notification({ msg: "something went wrong", class: 'is-danger' })
+                    this.$notification({ msg: "Something went wrong", class: 'is-danger' })
                 }
             })
     },
@@ -57,7 +57,7 @@ export const actions = {
                     this.$notification({ msg: "Note successfully deleted", class: 'is-success' })
                 } else {
                     // send error notification
-                    this.$notification({ msg: "something went wrong", class: 'is-danger' })
+                    this.$notification({ msg: "Something went wrong", class: 'is-danger' })
                 }
             })
     },

@@ -11,10 +11,14 @@
       </ul>
     </div>
 
-    <div v-for="item in tab ? $store.getters['note/getNotes'] : []" :key="item._id" class="columns">
+    <div
+      v-for="item in tab ? $store.getters['note/getNotes'] : $store.getters['list/getLists']"
+      :key="item._id"
+      class="columns"
+    >
       <div class="column is-full">
-        <Note :data="item" v-if="tab" />
-        <List v-else />
+        <Note v-if="tab" :data="item" />
+        <List v-else :data="item" />
       </div>
     </div>
   </div>
