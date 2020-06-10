@@ -99,10 +99,7 @@ export default {
         reader.readAsDataURL(files[0]);
         this.note.photo = "";
       } else {
-        this.$notification({
-          msg: "The photo you will upload must be less than 6 MB!",
-          class: "is-danger"
-        });
+        this.$toast.error("The photo you will upload must be less than 6 MB!");
       }
     },
     submit() {

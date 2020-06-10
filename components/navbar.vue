@@ -7,6 +7,7 @@
         </a>
 
         <a
+          id="navbar-burger"
           role="button"
           class="navbar-burger burger"
           aria-label="menu"
@@ -21,10 +22,20 @@
 
       <div id="mobileNavbar" class="navbar-menu">
         <div class="navbar-end">
-          <nuxt-link :to="{ name: 'index' }" class="navbar-item" tag="a">Home</nuxt-link>
-          <nuxt-link :to="{ name: 'create-note' }" class="navbar-item" tag="a">Create note</nuxt-link>
-          <nuxt-link :to="{ name: 'create-list' }" class="navbar-item" tag="a">Create list</nuxt-link>
-          <a @click="$store.dispatch('user/logout')" class="navbar-item">Logout</a>
+          <nuxt-link @click.native="close" :to="{ name: 'index' }" class="navbar-item" tag="a">Home</nuxt-link>
+          <nuxt-link
+            @click.native="close"
+            :to="{ name: 'create-note' }"
+            class="navbar-item"
+            tag="a"
+          >Create note</nuxt-link>
+          <nuxt-link
+            @click.native="close"
+            :to="{ name: 'create-list' }"
+            class="navbar-item"
+            tag="a"
+          >Create list</nuxt-link>
+          <a @click="logout" class="navbar-item">Logout</a>
         </div>
       </div>
     </div>
@@ -54,6 +65,19 @@ export default {
           $target.classList.toggle("is-active");
         });
       });
+    }
+  },
+  methods: {
+    close() {
+      const mobileNavbar = document.getElementById("mobileNavbar");
+      const navbarBurger = document.getElementById("navbar-burger");
+
+      mobileNavbar.classList.toggle("is-active");
+      navbarBurger.classList.toggle("is-active");
+    },
+    logout() {
+      this.$store.dispatch("user/logout");
+      this.close();
     }
   }
 };

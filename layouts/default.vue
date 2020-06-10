@@ -5,8 +5,6 @@
     <br />
 
     <main class="container">
-      <Notification />
-
       <nuxt />
     </main>
 
@@ -22,10 +20,9 @@
 
 <script>
 import Navbar from "@/components/navbar";
-import Notification from "@/components/notification";
 import Footer from "@/components/footer";
 
 export default {
-  components: { Navbar, Notification, Footer }
+  components: { Navbar, Footer }
 };
 </script>

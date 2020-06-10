@@ -33,12 +33,43 @@ export default {
     '~/assets/css/style.css',
     '@fortawesome/fontawesome-free/css/all.css'
   ],
+
+  toast: {
+    position: 'top-center',
+    register: [ // Register custom toasts
+      {
+        name: 'success',
+        message: message => message,
+        options: {
+          type: 'success',
+          theme: 'outline',
+          duration: 3000
+        }
+      },
+      {
+        name: 'error',
+        message: 'Oops...Something went wrong',
+        options: {
+          type: 'error',
+          theme: 'outline',
+          duration: 3000
+        }
+      },
+      {
+        name: 'warning',
+        message: message => message,
+        options: {
+          type: 'info',
+          theme: 'outline',
+          duration: 3000
+        }
+      },
+    ]
+  },
   /*
   ** Plugins to load before mounting the App
   */
-  plugins: [
-    { src: '~/plugins/notification.js', mode: 'client' }
-  ],
+  plugins: [],
   /*
   ** serverMiddleware 
   */
@@ -61,6 +92,8 @@ export default {
     '@nuxtjs/bulma',
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
+    // Doc: https://github.com/nuxt-community/modules/tree/master/packages/toast
+    '@nuxtjs/toast'
   ],
   /*
   ** Axios module configuration

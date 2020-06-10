@@ -22,12 +22,12 @@ export const actions = {
                     // get notes 
                     dispatch('notes')
                     // send success notification
-                    this.$notification({ msg: "Note created successfully", class: 'is-success' })
+                    this.$toast.global.success("Note created successfully")
                     // redicect to home page
                     this.$router.push({ name: 'index' })
                 } else {
                     // send error notification
-                    this.$notification({ msg: "Something went wrong", class: 'is-danger' })
+                    this.$toast.global.error("Something went wrong")
                 }
             })
     },
@@ -38,12 +38,12 @@ export const actions = {
                     // get notes 
                     dispatch('notes')
                     // send success notification
-                    this.$notification({ msg: "Note successfully updated", class: 'is-success' })
+                    this.$toast.global.success("Note successfully updated")
                     // redirect to home page
                     this.$router.push({ name: 'index' })
                 } else {
                     // send error notification
-                    this.$notification({ msg: "Something went wrong", class: 'is-danger' })
+                    this.$toast.global.error("Something went wrong")
                 }
             })
     },
@@ -54,10 +54,10 @@ export const actions = {
                     // get notes 
                     dispatch('notes')
                     // send success notification
-                    this.$notification({ msg: "Note successfully deleted", class: 'is-success' })
+                    this.$toast.global.success("Note successfully deleted")
                 } else {
                     // send error notification
-                    this.$notification({ msg: "Something went wrong", class: 'is-danger' })
+                    this.$toast.global.error("Something went wrong")
                 }
             })
     },

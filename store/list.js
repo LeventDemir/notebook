@@ -25,15 +25,15 @@ export const actions = {
                     // get lists
                     dispatch('lists')
                     // send success notification
-                    this.$notification({ msg: "List successfully created", class: 'is-success' })
+                    this.$toast.global.success("List successfully created")
                     // redicect to home page
                     this.$router.push({ name: 'index' })
                 } else if (response.data.exist) {
                     // send warning notification
-                    this.$notification({ msg: "This list already exist", class: 'is-warning' })
+                    this.$toast.global.warning("This list already exist")
                 } else {
                     // send error notification
-                    this.$notification({ msg: "Something went wrong", class: 'is-danger' })
+                    this.$toast.global.error("Something went wrong")
                 }
             })
     },
@@ -44,15 +44,15 @@ export const actions = {
                     // get notes 
                     dispatch('lists')
                     // send success notification
-                    this.$notification({ msg: "List successfully updated", class: 'is-success' })
+                    this.$toast.global.success("List successfully updated")
                     // redirect to home page
                     this.$router.push({ name: 'index' })
                 } else if (response.data.exist) {
                     // send warning notification
-                    this.$notification({ msg: "This list already exist", class: 'is-warning' })
+                    this.$toast.global.warning("This list already exist")
                 } else {
                     // send error notification
-                    this.$notification({ msg: "Something went wrong", class: 'is-danger' })
+                    this.$toast.global.error({ msg: "Something went wrong", class: 'is-danger' })
                 }
             })
     },
@@ -63,10 +63,10 @@ export const actions = {
                     // get notes 
                     dispatch('lists')
                     // send success notification
-                    this.$notification({ msg: "List successfully deleted", class: 'is-success' })
+                    this.$toast.global.success("List successfully deleted")
                 } else {
                     // send error notification
-                    this.$notification({ msg: "Something went wrong", class: 'is-danger' })
+                    this.$toast.global.error("Something went wrong")
                 }
             })
     },

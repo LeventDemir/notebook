@@ -38,20 +38,20 @@ export const actions = {
                     commit('setAuth', true)
 
                     // send success notification
-                    this.$notification({ msg: "Registration successfully completed", class: 'is-success' })
+                    this.$toast.global.success("Registration successfully completed")
 
                     // redicect to home page
                     this.$router.push({ name: 'index' })
                 } else if (response.data.exist) {
                     // send error notification
-                    this.$notification({ msg: "This user is already exist", class: 'is-danger' })
+                    this.$toast.global.warning("This user is already exist")
                 } else {
                     // send error notification
-                    this.$notification({ msg: "Something went wrong", class: 'is-danger' })
+                    this.$toast.global.error("Something went wrong")
                 }
             })
     },
-    login({ commit }, user) {
+    login({ commit, dispatch }, user) {
         this.$axios.post('/user/login', user).then(response => {
             if (response.data.token) {
                 // set token to cookies
@@ -60,15 +60,19 @@ export const actions = {
                 commit('setToken', response.data.token)
                 // set auth to Vuex 
                 commit('setAuth', true)
+                // get notes from server
+                dispatch('note/notes', null, { root: true })
+                // get lists from server
+                dispatch('list/lists', null, { root: true })
 
                 // send success notification
-                this.$notification({ msg: "Logged in", class: 'is-success' })
+                this.$toast.global.success("Logged in")
 
                 // redicect to home page
                 this.$router.push({ name: 'index' })
             } else {
                 // send error notification
-                this.$notification({ msg: "Something went wrong", class: 'is-danger' })
+                this.$toast.global.error("Something went wrong")
             }
         })
     },
@@ -82,14 +86,18 @@ export const actions = {
                     commit('setToken', null)
                     // delete auth from vuex
                     commit('setAuth', null)
+                    // delete notes from vuex
+                    commit('note/setNotes', [], { root: true })
+                    // delete lists from vuex
+                    commit('list/setLists', [], { root: true })
 
                     // send success notification
-                    this.$notification({ msg: "Logged out", class: 'is-success' })
+                    this.$toast.global.success("Logged out")
 
                     // redicect to home page
                     this.$router.push({ name: 'index' })
                 } else {
-                    this.$notification({ msg: "Something went wrong", class: 'is-danger' })
+                    this.$toast.global.error("Something went wrong")
                 }
             })
     },
