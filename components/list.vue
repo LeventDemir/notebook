@@ -22,11 +22,15 @@
       <div :class="collapsible ? 'collapsible-active' : 'collapsible'">
         <hr />
 
-        <!-- <div v-for="note in 2" :key="note" class="columns">
+        <div
+          v-for="(note, index) in $store.getters['list/getLists'][data.index].notes"
+          :key="index"
+          class="columns"
+        >
           <div class="column is-full">
-            <Note />
+            <Note :data="note" />
           </div>
-        </div>-->
+        </div>
       </div>
     </div>
   </div>

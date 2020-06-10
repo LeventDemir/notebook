@@ -12,13 +12,13 @@
     </div>
 
     <div
-      v-for="item in tab ? $store.getters['note/getNotes'] : $store.getters['list/getLists']"
+      v-for="(item, index) in tab ? $store.getters['note/getNotes'] : $store.getters['list/getLists']"
       :key="item._id"
       class="columns"
     >
-      <div class="column is-full">
+      <div v-if="!item.list || !tab" class="column is-full">
         <Note v-if="tab" :data="item" />
-        <List v-else :data="item" />
+        <List v-else :data="{ ...item, index }" />
       </div>
     </div>
   </div>

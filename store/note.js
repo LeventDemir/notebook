@@ -9,8 +9,24 @@ export const getters = {
 }
 
 export const mutations = {
-    setNotes(state, notes) {
-        state.notes = notes
+    setNotes(state, data) {
+        state.notes = data.notes
+        data.lists.map(list => list.notes = [])
+
+        data.lists.map((list) => {
+            data.notes.map(note => {
+                if (list._id == note.list) {
+                    if (list.notes) {
+                        list.notes.push(note)
+                    }
+                    else {
+                        list.notes = [note]
+                    }
+                }
+            })
+        })
+
+        this.commit('list/setLists', data.lists, { root: true })
     }
 }
 
@@ -65,7 +81,7 @@ export const actions = {
         return this.$axios.get('/note/notes', { params: { token: rootGetters['user/getToken'] } })
             .then(response => {
                 if (response.data.notes) {
-                    commit('setNotes', response.data.notes)
+                    commit('setNotes', { notes: response.data.notes, lists: rootGetters['list/getLists'] })
                 }
             })
     },
