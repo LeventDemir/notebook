@@ -2,22 +2,30 @@
   <div>
     <div class="tabs is-centered is-large">
       <ul>
-        <li @click="tab= !tab" :class="{ 'is-active' : tab }">
+        <nuxt-link
+          :to="{ name: 'index', query:{ page: 'note' } }"
+          :class="{ 'is-active' : $route.query.page == 'note' }"
+          tag="li"
+        >
           <a>Notes</a>
-        </li>
-        <li @click="tab = !tab" :class="{ 'is-active' : !tab }">
+        </nuxt-link>
+        <nuxt-link
+          :to="{ name: 'index', query:{ page: 'list' } }"
+          :class="{ 'is-active' : $route.query.page == 'list' }"
+          tag="li"
+        >
           <a>Lists</a>
-        </li>
+        </nuxt-link>
       </ul>
     </div>
 
     <div
-      v-for="(item, index) in tab ? $store.getters['note/getNotes'] : $store.getters['list/getLists']"
+      v-for="(item, index) in $route.query.page == 'note' ? $store.getters['note/getNotes'] : $store.getters['list/getLists']"
       :key="item._id"
       class="columns"
     >
-      <div v-if="!item.list || !tab" class="column is-full">
-        <Note v-if="tab" :data="item" />
+      <div v-if="!item.list || $route.query.page == 'list'" class="column is-full">
+        <Note v-if="$route.query.page == 'note'" :data="item" />
         <List v-else :data="{ ...item, index }" />
       </div>
     </div>
@@ -31,10 +39,10 @@ import List from "@/components/list";
 
 export default {
   components: { Note, List },
-  data() {
-    return {
-      tab: true
-    };
+  mounted() {
+    if (!this.$route.query.page) {
+      this.$router.push({ name: "index", query: { page: "note" } });
+    }
   }
 };
 </script>

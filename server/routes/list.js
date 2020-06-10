@@ -75,7 +75,7 @@ router.get('/lists', auth, (req, res) => {
         } else {
             res.json({ success: false })
         }
-    })
+    }).sort({ $natural: -1 })
 })
 
 

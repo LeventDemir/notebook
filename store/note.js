@@ -40,7 +40,7 @@ export const actions = {
                     // send success notification
                     this.$toast.global.success("Note created successfully")
                     // redicect to home page
-                    this.$router.push({ name: 'index' })
+                    this.$router.push({ name: 'index', query: { page: "note" } })
                 } else {
                     // send error notification
                     this.$toast.global.error("Something went wrong")
@@ -56,7 +56,7 @@ export const actions = {
                     // send success notification
                     this.$toast.global.success("Note successfully updated")
                     // redirect to home page
-                    this.$router.push({ name: 'index' })
+                    this.$router.push({ name: 'index', query: { page: "note" } })
                 } else {
                     // send error notification
                     this.$toast.global.error("Something went wrong")

@@ -75,7 +75,7 @@ router.get('/notes', auth, (req, res) => {
         } else {
             res.json({ success: false })
         }
-    })
+    }).sort({ $natural: -1 })
 })
 
 

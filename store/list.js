@@ -27,7 +27,7 @@ export const actions = {
                     // send success notification
                     this.$toast.global.success("List successfully created")
                     // redicect to home page
-                    this.$router.push({ name: 'index' })
+                    this.$router.push({ name: 'index', query: { page: "list" } })
                 } else if (response.data.exist) {
                     // send warning notification
                     this.$toast.global.warning("This list already exist")
@@ -46,7 +46,7 @@ export const actions = {
                     // send success notification
                     this.$toast.global.success("List successfully updated")
                     // redirect to home page
-                    this.$router.push({ name: 'index' })
+                    this.$router.push({ name: 'index', query: { page: "list" } })
                 } else if (response.data.exist) {
                     // send warning notification
                     this.$toast.global.warning("This list already exist")

@@ -39,11 +39,7 @@
         <div class="select is-rounded is-fullwidth">
           <select v-model="note.list">
             <option :value="null">Unlisted</option>
-            <option
-              v-for="list in $store.getters['list/getLists']"
-              :key="list._id"
-              :value="list._id"
-            >{{ list.name }}</option>
+            <option v-for="list in $store.getters['list/getLists']" :key="list._id" :value="list">{{list}}</option>
           </select>
         </div>
       </div>

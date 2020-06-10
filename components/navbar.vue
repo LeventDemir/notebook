@@ -22,7 +22,12 @@
 
       <div id="mobileNavbar" class="navbar-menu">
         <div class="navbar-end">
-          <nuxt-link @click.native="close" :to="{ name: 'index' }" class="navbar-item" tag="a">Home</nuxt-link>
+          <nuxt-link
+            @click.native="close"
+            :to="{ name: 'index', query: { page: 'note' } }"
+            class="navbar-item"
+            tag="a"
+          >Home</nuxt-link>
           <nuxt-link
             @click.native="close"
             :to="{ name: 'create-note' }"

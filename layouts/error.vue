@@ -10,7 +10,7 @@
 
       <br />
       <router-link
-        :to="{ name: 'index' }"
+        :to="{ name: 'index', query: { page: 'note' } }"
         tag="button"
         class="button is-rounded has-background-grey has-text-white"
       >home page</router-link>
