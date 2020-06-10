@@ -33,8 +33,7 @@ export default {
   components: { Note, List },
   data() {
     return {
-      tab: true,
-      list: null
+      tab: true
     };
   }
 };
