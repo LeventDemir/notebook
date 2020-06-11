@@ -14,6 +14,7 @@
 import ListForm from "@/components/list-form";
 
 export default {
+  middleware: "auth",
   components: { ListForm }
 };
 </script>

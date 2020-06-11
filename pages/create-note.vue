@@ -11,6 +11,7 @@
 import NoteForm from "@/components/note-form";
 
 export default {
+  middleware: "auth",
   components: { NoteForm }
 };
 </script>

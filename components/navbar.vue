@@ -1,47 +1,54 @@
 <template>
-  <nav class="navbar" role="navigation" aria-label="main navigation">
-    <div class="container">
-      <div class="navbar-brand">
-        <a class="navbar-item" href="https://bulma.io">
-          <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28" />
-        </a>
+  <nav class="container navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <router-link :to="{ name: 'index', query: { page: 'note' } }" class="navbar-item" tag="a">
+        <span class="is-size-3 has-text-info">Notebook</span>
+      </router-link>
 
-        <a
-          id="navbar-burger"
-          role="button"
-          class="navbar-burger burger"
-          aria-label="menu"
-          aria-expanded="false"
-          data-target="mobileNavbar"
-        >
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-        </a>
-      </div>
+      <a
+        id="navbar-burger"
+        role="button"
+        class="navbar-burger burger"
+        aria-label="menu"
+        aria-expanded="false"
+        data-target="mobileNavbar"
+      >
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
 
-      <div id="mobileNavbar" class="navbar-menu">
-        <div class="navbar-end">
-          <nuxt-link
-            @click.native="close"
-            :to="{ name: 'index', query: { page: 'note' } }"
-            class="navbar-item"
-            tag="a"
-          >Home</nuxt-link>
-          <nuxt-link
-            @click.native="close"
-            :to="{ name: 'create-note' }"
-            class="navbar-item"
-            tag="a"
-          >Create note</nuxt-link>
-          <nuxt-link
-            @click.native="close"
-            :to="{ name: 'create-list' }"
-            class="navbar-item"
-            tag="a"
-          >Create list</nuxt-link>
-          <a @click="logout" class="navbar-item">Logout</a>
-        </div>
+    <div id="mobileNavbar" class="navbar-menu">
+      <div class="navbar-end">
+        <nuxt-link
+          @click.native="close"
+          :to="{ name: 'index', query: { page: 'note' } }"
+          class="navbar-item"
+          tag="a"
+        >Home</nuxt-link>
+        <nuxt-link
+          v-if="$store.getters['user/getAuth']"
+          @click.native="close"
+          :to="{ name: 'create-note' }"
+          class="navbar-item"
+          tag="a"
+        >Create note</nuxt-link>
+        <nuxt-link
+          v-if="$store.getters['user/getAuth']"
+          @click.native="close"
+          :to="{ name: 'create-list' }"
+          class="navbar-item"
+          tag="a"
+        >Create list</nuxt-link>
+        <a v-if="$store.getters['user/getAuth']" @click="logout" class="navbar-item">Logout</a>
+        <nuxt-link
+          v-else
+          @click.native="close"
+          :to="{ name: 'login' }"
+          class="navbar-item"
+          tag="a"
+        >Login</nuxt-link>
       </div>
     </div>
   </nav>

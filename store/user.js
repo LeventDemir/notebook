@@ -87,7 +87,7 @@ export const actions = {
                     // delete auth from vuex
                     commit('setAuth', null)
                     // delete notes from vuex
-                    commit('note/setNotes', [], { root: true })
+                    commit('note/setNotes', { notes: [], lists: [] }, { root: true })
                     // delete lists from vuex
                     commit('list/setLists', [], { root: true })
 
