@@ -39,7 +39,11 @@
         <div class="select is-rounded is-fullwidth">
           <select v-model="note.list">
             <option :value="null">Unlisted</option>
-            <option v-for="list in $store.getters['list/getLists']" :key="list._id" :value="list">{{list}}</option>
+            <option
+              v-for="list in $store.getters['list/getLists']"
+              :key="list._id"
+              :value="list._id"
+            >{{ list.name }}</option>
           </select>
         </div>
       </div>
@@ -63,7 +67,7 @@
 export default {
   mounted() {
     if (this.$route.name == "update-note-id") {
-      const notes = this.$store.getters["note/getNotes"];
+      const notes = this.$store.getters["note/getAllNotes"];
       const noteIndex = notes.findIndex(
         index => index["_id"] == this.$route.params.id
       );

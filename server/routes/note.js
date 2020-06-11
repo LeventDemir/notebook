@@ -13,11 +13,9 @@ router.post('/create', auth, (req, res) => {
     data.createdAt = date.toGMTString().split(":")[0] + ":" + date.getMinutes()
 
     new Note(data).save(err => {
-        if (!err) {
-            res.json({ success: true })
-        } else {
-            res.json({ success: false })
-        }
+        if (!err) res.json({ success: true })
+
+        else res.json({ success: false })
     })
 })
 
@@ -33,15 +31,11 @@ router.post('/update', auth, (req, res) => {
             note.list = data.list
 
             note.save(err => {
-                if (!err) {
-                    res.json({ success: true })
-                } else {
-                    res.json({ err })
-                }
+                if (!err) res.json({ success: true })
+
+                else res.json({ err })
             })
-        } else {
-            res.json({ success: false })
-        }
+        } else res.json({ success: false })
     })
 })
 
@@ -53,15 +47,11 @@ router.post('/delete', auth, (req, res) => {
     Note.findOne({ _id: data.id, author }, (err, note) => {
         if (note) {
             note.remove(err => {
-                if (!err) {
-                    res.json({ success: true })
-                } else {
-                    res.json({ success: false })
-                }
+                if (!err) res.json({ success: true })
+
+                else res.json({ success: false })
             })
-        } else {
-            res.json({ success: false })
-        }
+        } else res.json({ success: false })
     })
 })
 
@@ -70,11 +60,9 @@ router.get('/notes', auth, (req, res) => {
     const author = jwt.verify(req.query.token, 'SeCrEtKeY').author
 
     Note.find({ author }, (err, notes) => {
-        if (notes) {
-            res.json({ notes })
-        } else {
-            res.json({ success: false })
-        }
+        if (notes) res.json({ notes })
+
+        else res.json({ success: false })
     }).sort({ $natural: -1 })
 })
 

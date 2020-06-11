@@ -9,7 +9,7 @@ const note = require('./routes/note')
 const list = require('./routes/list')
 
 
-mongoose.connect('mongodb://localhost/notebook', {
+mongoose.connect(process.env.BD || 'mongodb://localhost/notebook', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true

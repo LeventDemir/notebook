@@ -22,6 +22,7 @@
     <div id="mobileNavbar" class="navbar-menu">
       <div class="navbar-end">
         <nuxt-link
+          v-if="$store.getters['user/getAuth']"
           @click.native="close"
           :to="{ name: 'index', query: { page: 'note' } }"
           class="navbar-item"
@@ -43,12 +44,19 @@
         >Create list</nuxt-link>
         <a v-if="$store.getters['user/getAuth']" @click="logout" class="navbar-item">Logout</a>
         <nuxt-link
-          v-else
+          v-if="!$store.getters['user/getAuth']"
           @click.native="close"
           :to="{ name: 'login' }"
           class="navbar-item"
           tag="a"
         >Login</nuxt-link>
+        <nuxt-link
+          v-if="!$store.getters['user/getAuth']"
+          @click.native="close"
+          :to="{ name: 'register' }"
+          class="navbar-item"
+          tag="a"
+        >Register</nuxt-link>
       </div>
     </div>
   </nav>

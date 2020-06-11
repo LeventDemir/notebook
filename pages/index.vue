@@ -5,14 +5,14 @@
         <ul>
           <nuxt-link
             :to="{ name: 'index', query:{ page: 'note' } }"
-            :class="{ 'is-active' : $route.query.page == 'note' }"
+            :class="{ 'is-active' : page == 'note' }"
             tag="li"
           >
             <a>Notes</a>
           </nuxt-link>
           <nuxt-link
             :to="{ name: 'index', query:{ page: 'list' } }"
-            :class="{ 'is-active' : $route.query.page == 'list' }"
+            :class="{ 'is-active' : page == 'list' }"
             tag="li"
           >
             <a>Lists</a>
@@ -21,17 +21,38 @@
       </div>
 
       <div
-        v-for="(item, index) in $route.query.page == 'note' ? $store.getters['note/getNotes'] : $store.getters['list/getLists']"
+        v-for="(item, index) in page == 'note' ? $store.getters['note/getNotes'] : $store.getters['list/getLists']"
         :key="item._id"
         class="columns"
       >
-        <div v-if="!item.list || $route.query.page == 'list'" class="column is-full">
-          <Note
-            v-if="$route.query.page == 'note' && $store.getters['note/getNotes'].length"
-            :data="item"
-          />
+        <div class="column is-full">
+          <Note v-if="page == 'note'" :data="item" />
           <List v-else :data="{ ...item, index }" />
         </div>
+      </div>
+
+      <div
+        v-if="!$store.getters['note/getNotes'].length && page == 'note'"
+        class="has-text-centered"
+      >
+        <br />
+        <nuxt-link
+          :to="{ name: 'create-note' }"
+          tag="button"
+          class="button is-link is-rounded is-outlined is-fullwidth"
+        >Create a note</nuxt-link>
+      </div>
+
+      <div
+        v-if="!$store.getters['list/getLists'].length && page == 'list'"
+        class="has-text-centered"
+      >
+        <br />
+        <nuxt-link
+          :to="{ name: 'create-list' }"
+          tag="button"
+          class="button is-link is-rounded is-outlined is-fullwidth"
+        >Create a list</nuxt-link>
       </div>
     </div>
     <div v-else>
@@ -49,8 +70,13 @@ import Notebook from "@/components/notebook";
 export default {
   components: { Note, List, Notebook },
   mounted() {
-    if (!this.$route.query.page) {
+    if (!this.page) {
       this.$router.push({ name: "index", query: { page: "note" } });
+    }
+  },
+  computed: {
+    page() {
+      return this.$route.query.page;
     }
   }
 };

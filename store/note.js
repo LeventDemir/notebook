@@ -1,8 +1,12 @@
 export const state = () => ({
+    allNotes: [],
     notes: []
 })
 
 export const getters = {
+    getAllNotes(state) {
+        return state.allNotes
+    },
     getNotes(state) {
         return state.notes
     }
@@ -10,7 +14,15 @@ export const getters = {
 
 export const mutations = {
     setNotes(state, data) {
-        state.notes = data.notes
+        state.allNotes = data.notes
+        state.notes = []
+
+        data.notes.map(note => {
+            if (!note.list) {
+                state.notes.push(note)
+            }
+        })
+
         data.lists.map(list => list.notes = [])
 
         data.lists.map((list) => {

@@ -62,6 +62,7 @@ export const actions = {
                 if (response.data.success) {
                     // get notes 
                     dispatch('lists')
+                    dispatch('note/notes', null, { root: true })
                     // send success notification
                     this.$toast.global.success("List successfully deleted")
                 } else {
