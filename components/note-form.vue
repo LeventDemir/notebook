@@ -10,7 +10,7 @@
 
     <div class="field">
       <div class="control">
-        <textarea v-model="note.note" class="textarea" placeholder="Note" required />
+        <textarea class="textarea" v-model="note.note" placeholder="Note" required />
       </div>
     </div>
 
@@ -102,7 +102,9 @@ export default {
         reader.readAsDataURL(files[0]);
         this.note.photo = "";
       } else {
-        this.$toast.error("The photo you will upload must be less than 6 MB!");
+        this.$toast.error("The photo you will upload must be less than 6 MB!", {
+          duration: 5000
+        });
       }
     },
     submit() {

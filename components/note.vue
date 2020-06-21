@@ -4,17 +4,19 @@
       <div class="media">
         <div v-if="data.photo" class="media-left">
           <div class="image is-128x128">
-            <img :src="data.photo" alt="Image" />
+            <img
+              style="width: 128px; height:128px;object-fit: scale-down"
+              :src="data.photo"
+              alt="Image"
+            />
           </div>
         </div>
 
         <div class="media-content">
-          <div
-            class="content"
+          <p
+            class="content is-description"
             :class="collapsible ? 'text-collapsible-active' : 'text-collapsible'"
-          >
-            <p>{{ data.note }}</p>
-          </div>
+          >{{ data.note }}</p>
         </div>
       </div>
 

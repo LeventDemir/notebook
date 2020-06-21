@@ -10,7 +10,8 @@ router.post('/create', auth, (req, res) => {
     const date = new Date()
 
     data.author = jwt.verify(data.token, 'SeCrEtKeY').author
-    data.createdAt = date.toGMTString().split(":")[0] + ":" + date.getMinutes()
+    const minutes = date.getMinutes() < 10 ? 0 + "" + date.getMinutes() : date.getMinutes()
+    data.createdAt = date.toGMTString().split(", ")[1].split(":")[0] + ":" + minutes
 
     new Note(data).save(err => {
         if (!err) res.json({ success: true })

@@ -1,8 +1,9 @@
 <template>
-  <nav class="container navbar" role="navigation" aria-label="main navigation">
+  <nav class="navbar container" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
       <router-link :to="{ name: 'index', query: { page: 'note' } }" class="navbar-item" tag="a">
-        <span class="is-size-3 has-text-info">Notebook</span>
+        <img src="/favicon.ico" class="logo" />
+        <span class="is-size-4 has-text-link">Notebook</span>
       </router-link>
 
       <a
